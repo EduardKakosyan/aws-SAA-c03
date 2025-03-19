@@ -2,4 +2,4 @@
 /S3/SDK/ruby/temp_files/
 
 # Ignore gemfile.lock
-/S3/SDK/ruby/Gemfile.lock
+S3/SDK/ruby/Gemfile.lock

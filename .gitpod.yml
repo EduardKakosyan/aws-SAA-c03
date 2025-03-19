@@ -1,4 +1,8 @@
 tasks:
+  - name: tree
+    command: |
+      sudo apt-get install tree
+
   - name: aws-cli
   before:
     - name: Install AWS-CLI

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+echo "Deleting bucket..."
+
+if [ $# -eq 0 ]; then
+    echo "There needs to be a bucket name provided"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+
+# First, delete all objects in the bucket
+echo "Deleting all objects in bucket $BUCKET_NAME..."
+aws s3 rm s3://$BUCKET_NAME --recursive
+
+# Then delete the bucket itself
+echo "Deleting bucket $BUCKET_NAME..."
+aws s3api delete-bucket \
+    --bucket $BUCKET_NAME
+
+echo "Bucket $BUCKET_NAME deleted successfully"

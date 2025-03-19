@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "Creating 5 random files"
+
+# Create a local directory for temporary files
+OUTPUT_DIR="./temp_files"
+mkdir -p $OUTPUT_DIR
+
+# Define the prefix for file names
+FILENAME_PREFIX="eduard-random-file-uploaded"
+
+# Create 5 random files
+for i in {1..5}; do
+    FILENAME="$OUTPUT_DIR/${FILENAME_PREFIX}-$i"
+    dd if=/dev/urandom of="$FILENAME" bs=1M count=1
+done
+
+echo "Files created successfully in $OUTPUT_DIR"
+
+tree $OUTPUT_DIR
+
+echo "Uploading files to S3"
+
+BUCKET_NAME="eduard-has-made-a-brand-new-bucket"
+
+aws s3 sync $OUTPUT_DIR s3://$BUCKET_NAME
+
+echo "Files uploaded successfully to S3"
+
+aws s3 ls s3://$BUCKET_NAME

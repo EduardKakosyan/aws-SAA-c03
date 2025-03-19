@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    echo "There needs to be a bucket name provided"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+
+aws s3api create-bucket \
+    --bucket $BUCKET_NAME \
+    --region us-east-1 \
+    --query "Location" \
+    --output text
